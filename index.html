@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Appointment Schedule</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bootstrap-datepicker.min.css">
+    <style>
+    h2{ margin-top: 10px; }
+    .well-block { margin: 30px auto; background-color: #fff; border: 1px solid #e9e6e8; padding: 30px; }    
+    .well-title { margin-bottom: 30px; }
+    #successfulpost { font: bold 12px Verdana, Arial, Helvetica, sans-serif; color: #ff0000;  }
+    input#name{ text-transform: capitalize; }
+    .req{ color: #cf0000; }
+    .validation-err{ min-height: 20px; display: block; margin: 3px 0; color: #cf0000; }
+    .form-group { margin-bottom: 5px; }
+    input.form-control[readonly]{ background-color: #fff; }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+        	<div class="col-md-6">
+        		<div class="well-block">
+	                <div class="well-title">
+	                    <h2>Book an Appointment</h2>
+	                </div>
+	                <p class="qc-errmsg" style="display: none;">&nbsp;</p>
+	                <form id="datainput" action="process.php" method="post">
+	                    <!-- Form start -->
+	                    <div class="row">
+	                        <div class="col-md-6">
+	                            <div class="form-group">
+	                                <label class="control-label" for="name">Name <span class="req">*</span></label>
+	                                <input id="name" name="name" type="text" placeholder="Name" value="" class="form-control input-md">
+	                                <span class="validation-err"></span>
+	                            </div>
+	                        </div>
+	                        <!-- Text input-->
+	                        <div class="col-md-6">
+	                            <div class="form-group">
+	                                <label class="control-label" for="email">Email</label>
+	                                <input id="email" name="email" type="email" placeholder="E-Mail" value="" class="form-control input-md">
+	                                <span class="validation-err"></span>
+	                            </div>
+	                        </div>
+	                        <!-- Text input-->
+	                        <div class="col-md-6">
+	                            <div class="form-group">
+	                                <label class="control-label" for="contact">Mobile Number <span class="req">*</span></label>
+	                                <input id="contact" name="contact" type="number" value="" placeholder="Mobile Number" class="form-control input-md" maxlength="10">
+	                            	<span class="validation-err"></span>
+	                            </div>
+	                        </div>
+	                        <!-- Select Basic -->
+	                        <div class="col-md-6">
+	                            <div class="form-group">
+	                                <label class="control-label" for="ptime">Appointment Preferred Time <span class="req">*</span></label>
+	                                <select id="ptime" name="ptime" class="form-control">
+	                                	<option value="">--Select time--</option>
+	                                    <option value="08:00 to 10:00">08:00 to 10:00</option>
+	                                    <option value="10:30 to 12:30">10:30 to 12:30</option>
+	                                    <option value="14:00 to 16:00">14:00 to 16:00</option>
+	                                    <option value="16:30 to 18:00">16:30 to 18:00</option>
+	                                </select>
+	                                <span class="validation-err"></span>
+	                            </div>
+	                        </div>
+	                        <!-- Select Basic -->
+	                        <div class="col-md-6">
+	                            <div class="form-group">
+	                                <label class="control-label" for="apDate">Appointment Date <span class="req">*</span></label>
+	                                <input id="apDate" name="apDate" class="form-control input-md datepicker" data-date-format="mm/dd/yyyy" placeholder="Appointment Date" readonly>
+	                                <span class="validation-err"></span>
+	                            </div>
+	                        </div>
+	                        <div class="col-md-6">
+	                            <div class="form-group">
+	                                <label class="control-label" for="appointmentfor">Appointment For <span class="req">*</span></label>
+	                                <select id="appointmentfor" name="appointmentfor" class="form-control">
+	                                	<option value="">--Select service type--</option>
+	                                    <option value="Service#1">Service#1</option>
+	                                    <option value="Service#2">Service#2</option>
+	                                    <option value="Service#3">Service#3</option>
+	                                    <option value="Service#4">Service#4</option>
+	                                    <option value="Service#5">Service#5</option>
+	                                </select>
+	                                <span class="validation-err"></span>
+	                            </div>
+	                        </div>
+	                        <!-- Button -->
+	                        <div class="col-md-12">
+	                            <div class="form-group text-right">
+	                                <button type="submit" id="submitdata" name="submitdata" class="btn btn-primary">Make An Appointment</button>
+	                                <button type="reset" id="resetdata" name="resetdata" class="btn btn-default">Reset</button>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </form>
+	                <!-- form end -->
+	            </div>
+        	</div>
+        	<div class="col-md-6">
+        		<div class="well-block">
+	                <div class="well-title">
+	                    <h2>Check for an Appointment</h2>
+	                </div>
+	                <p class="search-status" style="display: none;">&nbsp;</p>
+	                <span class="search-err"></span>
+	                <form id="checkdatainput" action="search.php" method="post">
+	                    <!-- Form start -->
+	                    <div class="row">
+	                        <!-- Text input-->
+	                        <div class="col-md-6">
+	                            <div class="form-group">
+	                                <label class="control-label" for="checkContact">Mobile Number</label>
+	                                <input id="checkContact" name="checkContact" type="number" value="" placeholder="Mobile Number" class="form-control input-md" maxlength="10">
+	                            	<span class="validation-err"></span>
+	                            </div>
+	                        </div>
+	                        <!-- Select Basic -->
+	                        <div class="col-md-6">
+	                            <div class="form-group">
+	                                <label class="control-label" for="checkApDate">Appointment Date</label>
+	                                <input id="checkApDate" name="checkApDate" class="form-control input-md datepicker" data-date-format="mm/dd/yyyy" placeholder="Appointment Date" readonly>
+	                            	<span class="validation-err"></span>
+	                            </div>
+	                        </div>
+	                        <!-- Button -->
+	                        <div class="col-md-12">
+	                            <div class="form-group text-right">
+	                                <button type="submit" id="checkdata" name="checkdata" class="btn btn-primary">Check for Appointment</button>
+	                                <button type="reset" id="resetfld" name="resetfld" class="btn btn-default">Reset</button>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </form>
+	                <!-- form end -->
+	            </div>
+	            <div class="result-block">	            	
+	            </div>
+        	</div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src="bootstrap-datepicker.min.js"></script>
+    <script src="appointment.js"></script>
+</body>
+
+</html>
